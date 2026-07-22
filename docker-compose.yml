@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: prs-postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: prs
+      POSTGRES_PASSWORD: prs_dev_password
+      POSTGRES_DB: prs
+    volumes:
+      - prs_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prs -d prs"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  prs_pg_data:

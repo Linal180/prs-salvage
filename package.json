@@ -1,0 +1,23 @@
+{
+  "name": "prs-platform",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:api": "npm run dev -w @prs/api",
+    "dev:web": "npm run dev -w @prs/web",
+    "dev:mail": "maildev --smtp 1025 --web 1080 --ip 127.0.0.1",
+    "build": "npm run build -w @prs/api && npm run build -w @prs/web",
+    "test": "npm run test -w @prs/api && npm run test -w @prs/web",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:migrate": "npm run db:migrate -w @prs/api",
+    "db:seed": "npm run db:seed -w @prs/api",
+    "db:setup": "npm run db:up && sleep 3 && npm run db:migrate && npm run db:seed"
+  },
+  "devDependencies": {
+    "maildev": "^3.0.0-rc.1"
+  }
+}
