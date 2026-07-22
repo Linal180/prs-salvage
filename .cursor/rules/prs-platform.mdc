@@ -5,7 +5,7 @@ alwaysApply: true
 
 # PRS Platform Rules
 
-Read `PROJECT_CONTEXT.md` at the repo root before starting work. Keep it updated when finishing a session.
+Read `PROJECT_CONTEXT.md` at the repo root **before** starting work — it holds full history from day 1 (budget, phases, bugs, gates, next steps). Append the session log when finishing; never delete older entries.
 
 ## Product
 
