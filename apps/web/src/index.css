@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --color-prs-50: #f3faf5;
+  --color-prs-100: #e3f4e9;
+  --color-prs-200: #c5e8d1;
+  --color-prs-300: #97d4ad;
+  --color-prs-400: #5fb67f;
+  --color-prs-500: #38985c;
+  --color-prs-600: #1b6b3a;
+  --color-prs-700: #165730;
+  --color-prs-800: #134527;
+  --color-prs-900: #0f3d22;
+  --color-ink: #14201a;
+  --color-muted: #5a6b61;
+  --color-line: #d7e5db;
+  --color-paper: #ffffff;
+  --color-wash: #f7fbf8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-wash font-sans text-ink antialiased;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
