@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Platform roles — Phase 1 auth; folders/bids attach later by role.
+enum Role {
+  ADMIN
+  INSURANCE
+  DEALER
+  PRIVATE_SELLER
+}
+
+/// Registration gate — only APPROVED users reach role dashboards.
+enum UserStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  role         Role
+  status       UserStatus @default(PENDING)
+
+  /// Company name (insurance/dealer) or person name (private seller / dealer individual)
+  displayName String
+  phone       String?
+  /// NTN for insurance; tax/ID for dealers; optional for private sellers
+  taxNumber   String?
+  location    String?
+
+  policyAcceptedAt DateTime?
+  emailVerifiedAt  DateTime?
+  approvedAt       DateTime?
+  suspendedAt      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  emailVerificationTokens EmailVerificationToken[]
+
+  @@index([role, status])
+  @@index([status])
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
