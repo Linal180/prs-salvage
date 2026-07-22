@@ -1,0 +1,33 @@
+---
+description: PRS Salvage Auction Platform — persistent project context for all sessions
+alwaysApply: true
+---
+
+# PRS Platform Rules
+
+Read `PROJECT_CONTEXT.md` at the repo root before starting work. Keep it updated when finishing a session.
+
+## Product
+
+Salvage vehicle auction marketplace (Pakistan MVP). Roles: `ADMIN`, `INSURANCE`, `DEALER`, `PRIVATE_SELLER`. Budget PKR 150k / 4 phases. Vehicle payment is offline.
+
+## Stack
+
+- `apps/web` — React + Vite + Tailwind + React Router  
+- `apps/api` — Fastify + Prisma + Zod + PostgreSQL (:5433)  
+- Dev mail: MailDev (`npm run dev:mail`) → UI :1080, SMTP :1025  
+
+## Hard constraints
+
+1. **Validate, don’t auto-fix invalid input** — reject with field errors.  
+2. User gate order: suspended → email verify → admin pending → dashboard.  
+3. Reuse `pagination` helpers for every future list API + `<Pagination />` UI.  
+4. Never send `Content-Type: application/json` with an empty body.  
+5. Email verify links must use `target="_blank"` (MailDev preview).  
+6. One-time verify tokens: guard React Strict Mode double-mount.  
+7. Keep hours/scope lean — no JazzCash/native/AI/WebSockets in 150k scope.  
+8. Theme: green `#1b6b3a` / white; fonts Fraunces + Manrope (not Inter/purple AI look).
+
+## Next work
+
+Phase 2: vehicles, photos, draft/publish, company folders. See Phase 2 checklist in `PROJECT_CONTEXT.md`.
